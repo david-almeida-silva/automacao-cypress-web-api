@@ -1,0 +1,61 @@
+{
+  "info": {
+    "_postman_id": "4ca22db1-f5c2-4492-8b3f-27afd18c5719",
+    "name": "Desafio API Trello",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "55995934",
+    "_collection_link": "https://go.postman.co/collection/55995934-4ca22db1-f5c2-4492-8b3f-27afd18c5719?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Buscar Action e Validar 'name'",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "// 1. Validar o status code da resposta do serviço",
+              "pm.test(\"Status code é 200 OK\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "// 2. Exibir o conteúdo do campo 'name' da estrutura 'list'",
+              "pm.test(\"Encontrar e exibir o 'name' da 'list'\", function () {",
+              "    var jsonData = pm.response.json();",
+              "    ",
+              "    // O Trello retorna o 'name' dentro de data -> list -> name",
+              "    var nomeDaLista = jsonData.data.list.name;",
+              "    ",
+              "    console.log(\"--- RESULTADO DO DESAFIO ---\");",
+              "    console.log(\"O conteúdo do campo 'name' da estrutura 'list' é: \" + nomeDaLista);",
+              "    ",
+              "    // Validação extra para garantir que o campo existe e não está vazio",
+              "    pm.expect(nomeDaLista).to.be.a('string').and.not.be.empty;",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://api.trello.com/1/actions/592f11060f95a3d3d46a987a",
+          "protocol": "https",
+          "host": [
+            "api",
+            "trello",
+            "com"
+          ],
+          "path": [
+            "1",
+            "actions",
+            "592f11060f95a3d3d46a987a"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}

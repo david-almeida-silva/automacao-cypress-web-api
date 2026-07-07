@@ -1,0 +1,11 @@
+# Dependências do Node
+node_modules/
+
+# Arquivos gerados pelo Cypress durante a execução
+cypress/videos/
+cypress/screenshots/
+cypress/downloads/
+
+# Arquivos de log e ambiente
+.env
+*.log

@@ -1,0 +1,27 @@
+name: Execução de Testes Cypress E2E e API
+
+# Define quando a esteira vai rodar (ao fazer push para a branch main)
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  cypress-run:
+    runs-on: ubuntu-latest # A máquina virtual usará Linux
+
+    steps:
+      - name: 📥 Baixar o código do repositório
+        uses: actions/checkout@v4
+
+      - name: ⚙️ Configurar o Node.js (v24)
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24' # Versão que estamos usando no projeto
+
+      - name: 📦 Instalar Dependências (npm install)
+        run: npm install
+
+      - name: 🧪 Executar Testes em Modo Headless
+        run: npx cypress run
