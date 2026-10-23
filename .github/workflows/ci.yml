@@ -25,3 +25,11 @@ jobs:
 
       - name: 🧪 Executar Testes em Modo Headless
         run: npx cypress run
+
+      - name: 📊 Salvar Relatório Mochawesome (Artifact)
+        uses: actions/upload-artifact@v4
+        if: always() # Garante que o relatório seja salvo mesmo se um teste falhar
+        with:
+          name: Relatorio-Cypress-Mochawesome
+          path: cypress/reports/html/
+          retention-days: 30
