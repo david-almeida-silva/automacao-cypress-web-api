@@ -13,8 +13,12 @@
 // https://on.cypress.io/configuration
 // ***********************************************************
 
-// Import commands.js using ES2015 syntax:
-import './commands'
+// 1. Registra o Mochawesome Reporter
+import 'cypress-mochawesome-reporter/register';
+
+// 2. Import commands.js using ES2015 syntax:
+import './commands';
+
 // Previne que o Cypress falhe o teste por causa de erros internos do site
 Cypress.on('uncaught:exception', (err, runnable) => {
   return false;
