@@ -1,6 +1,6 @@
 name: Execução de Testes Cypress E2E e API
 
-# Define quando a esteira vai rodar (ao fazer push para a branch main)
+# Define quando a esteira vai rodar
 on:
   push:
     branches: [ "main" ]
@@ -15,10 +15,10 @@ jobs:
       - name: 📥 Baixar o código do repositório
         uses: actions/checkout@v4
 
-      - name: ⚙️ Configurar o Node.js (v24)
+      - name: ⚙️ Configurar o Node.js (v20 LTS)
         uses: actions/setup-node@v4
         with:
-          node-version: '24' # Versão que estamos usando no projeto
+          node-version: '20' # Versão LTS ideal para gerar os relatórios do Mochawesome
 
       - name: 📦 Instalar Dependências (npm install)
         run: npm install
@@ -31,5 +31,5 @@ jobs:
         if: always() # Garante que o relatório seja salvo mesmo se um teste falhar
         with:
           name: Relatorio-Cypress-Mochawesome
-          path: cypress/reports/html/
+          path: cypress/reports/ # Captura a pasta inteira para não perdermos nada
           retention-days: 30
