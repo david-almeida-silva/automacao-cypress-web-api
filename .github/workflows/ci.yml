@@ -30,7 +30,7 @@ jobs:
         if: always() # Roda mesmo se os testes falharem
         run: |
           npx mochawesome-merge "cypress/reports/html/.jsons/*.json" > cypress/reports/html/mochawesome-bundle.json
-          npx marge cypress/reports/html/mochawesome-bundle.json -f index -o cypress/reports/html/
+          npx marge cypress/reports/html/mochawesome-bundle.json -f index -o cypress/reports/html/ --inline
 
       - name: 📊 Salvar Relatório Mochawesome (Artifact)
         uses: actions/upload-artifact@v4
