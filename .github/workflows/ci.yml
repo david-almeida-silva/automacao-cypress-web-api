@@ -18,18 +18,25 @@ jobs:
       - name: ⚙️ Configurar o Node.js (v20 LTS)
         uses: actions/setup-node@v4
         with:
-          node-version: '20' # Versão LTS ideal para gerar os relatórios do Mochawesome
+          node-version: '20'
 
-      - name: 📦 Instalar Dependências (npm install)
+      - name: 📦 Instalar Dependências
         run: npm install
 
       - name: 🧪 Executar Testes em Modo Headless
         run: npx cypress run
 
+      - name: 🔨 Forçar geração do Relatório HTML (Merge)
+        if: always() # Roda mesmo se os testes falharem
+        run: |
+          npx mochawesome-merge "cypress/reports/html/.jsons/*.json" > cypress/reports/html/mochawesome-bundle.json
+          npx marge cypress/reports/html/mochawesome-bundle.json -f index -o cypress/reports/html/
+
       - name: 📊 Salvar Relatório Mochawesome (Artifact)
         uses: actions/upload-artifact@v4
-        if: always() # Garante que o relatório seja salvo mesmo se um teste falhar
+        if: always()
         with:
           name: Relatorio-Cypress-Mochawesome
-          path: cypress/reports/ # Captura a pasta inteira para não perdermos nada
+          path: cypress/reports/
+          include-hidden-files: true # 👈 A MÁGICA: Obriga o GitHub a ler a pasta oculta .jsons
           retention-days: 30
